@@ -27,6 +27,13 @@ public class BerlinClockConverterTest {
     }
 
     @Test
+    public void testBerlinClockForEmptyInput() {
+        assertIllegalArgumentException();
+
+        new BerlinClockConverter("");
+    }
+
+    @Test
     public void testBerlinClockForSeconds() {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
