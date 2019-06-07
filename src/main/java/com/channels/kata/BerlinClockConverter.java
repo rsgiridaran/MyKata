@@ -14,7 +14,7 @@ public class BerlinClockConverter {
 
     private BerlinClock processTime(int seconds) {
         berlinClock = new BerlinClock();
-        berlinClock.setSeconds((seconds % 2 == 0) ? "Y" : "0");
+        berlinClock.setSecond((seconds % 2 == 0) ? "Y" : "0");
         return berlinClock;
     }
 

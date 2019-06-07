@@ -1,18 +1,18 @@
 package com.channels.kata;
 
 public class BerlinClock {
-    private String seconds;
+    private String second;
 
-    public String getSeconds() {
-        return seconds;
+    public String getSecond() {
+        return second;
     }
 
-    public void setSeconds(String seconds) {
-        this.seconds = seconds;
+    public void setSecond(String second) {
+        this.second = second;
     }
 
     @Override
     public String toString() {
-        return getSeconds();
+        return getSecond();
     }
 }
