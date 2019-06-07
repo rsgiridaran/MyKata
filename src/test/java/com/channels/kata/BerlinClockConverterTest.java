@@ -8,17 +8,11 @@ import org.junit.rules.ExpectedException;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-public class BerlinClockTest {
+public class BerlinClockConverterTest {
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
-    @Test
-    public void testBerlinClockForNullInput() {
-        assertIllegalArgumentException();
-
-        new BerlinClock(null);
-    }
 
     private void assertIllegalArgumentException() {
         expectedException.expect(IllegalArgumentException.class);
@@ -29,7 +23,7 @@ public class BerlinClockTest {
     public void testBerlinClockForInvalidInput() {
         assertIllegalArgumentException();
 
-        new BerlinClock("24:67:56");
+        new BerlinClockConverter("24:67:56");
     }
 
     @Test
@@ -37,7 +31,7 @@ public class BerlinClockTest {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
 
-        BerlinClock clock = new BerlinClock("21:56:23");
+        BerlinClockConverter clock = new BerlinClockConverter("21:56:23");
         clock.printBerlinClock();
 
         Assert.assertEquals("0", outputStream.toString());
