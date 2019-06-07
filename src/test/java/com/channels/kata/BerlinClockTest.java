@@ -11,16 +11,19 @@ public class BerlinClockTest {
 
     @Test
     public void testBerlinClockForNullInput() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Please enter valid input");
+        assertIllegalArgumentException();
 
         new BerlinClock(null);
     }
 
-    @Test
-    public void testBerlinClockForInvalidInput() {
+    private void assertIllegalArgumentException() {
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("Time must be in the format HH:mm:ss");
+    }
+
+    @Test
+    public void testBerlinClockForInvalidInput() {
+        assertIllegalArgumentException();
 
         new BerlinClock("24:67:56");
     }
