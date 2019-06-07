@@ -17,4 +17,12 @@ public class BerlinClockTest {
         new BerlinClock(null);
     }
 
+    @Test
+    public void testBerlinClockForInvalidInput() {
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("Time must be in the format HH:mm:ss");
+
+        new BerlinClock("24:67:56");
+    }
+
 }
