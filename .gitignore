@@ -1,0 +1,4 @@
+# Ignore binary files created in project
+/target/
+*.iml
+*.idea/
