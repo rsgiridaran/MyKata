@@ -24,17 +24,17 @@ public class BerlinClockConverter {
     private BerlinClock processTime(int hour, int minute, int seconds) {
         berlinClock = new BerlinClock();
         berlinClock.setSecond((seconds % CONSTANT_TWO == 0) ? YELLOW_LIGHT : NO_LIGHTS);
-        berlinClock.setHourFirstRow(generateHourRowString(hour / CONSTANT_FIVE, RED_LIGHT, MAXIMUM_NUMBER_OF_LIGHTS_IN_HOUR_ROW));
-        berlinClock.setHourSecondRow(generateHourRowString(hour % CONSTANT_FIVE, RED_LIGHT, MAXIMUM_NUMBER_OF_LIGHTS_IN_HOUR_ROW));
-        berlinClock.setMinutesFirstRow(generateHourRowString(minute / CONSTANT_FIVE, YELLOW_LIGHT, MAXIMUM_NUMBER_OF_LIGHTS_IN_MINUTE_FIRST_ROW).replace("YYY", "YYR"));
-        berlinClock.setMinutesSecondRow(generateHourRowString(minute % CONSTANT_FIVE, YELLOW_LIGHT, MAXIMUM_NUMBER_OF_LIGHTS_IN_HOUR_ROW));
+        berlinClock.setHourFirstRow(generateHourRowString((hour / CONSTANT_FIVE), RED_LIGHT, MAXIMUM_NUMBER_OF_LIGHTS_IN_HOUR_ROW));
+        berlinClock.setHourSecondRow(generateHourRowString((hour % CONSTANT_FIVE), RED_LIGHT, MAXIMUM_NUMBER_OF_LIGHTS_IN_HOUR_ROW));
+        berlinClock.setMinutesFirstRow(generateHourRowString((minute / CONSTANT_FIVE), YELLOW_LIGHT, MAXIMUM_NUMBER_OF_LIGHTS_IN_MINUTE_FIRST_ROW).replace("YYY", "YYR"));
+        berlinClock.setMinutesSecondRow(generateHourRowString((minute % CONSTANT_FIVE), YELLOW_LIGHT, MAXIMUM_NUMBER_OF_LIGHTS_IN_HOUR_ROW));
         return berlinClock;
     }
 
-    private String generateHourRowString(int numberOfLightsOnInRow, String lightColor, int manimumNumberOfLightsInRow) {
+    private String generateHourRowString(int numberOfLightsOnInRow, String lightColor, int maximumNumberOfLightsInRow) {
         StringBuilder rowStringBuilder = new StringBuilder();
         rowStringBuilder.append(StringUtils.repeat(lightColor, numberOfLightsOnInRow));
-        rowStringBuilder.append(StringUtils.repeat(NO_LIGHTS, manimumNumberOfLightsInRow - numberOfLightsOnInRow));
+        rowStringBuilder.append(StringUtils.repeat(NO_LIGHTS, (maximumNumberOfLightsInRow - numberOfLightsOnInRow)));
         return rowStringBuilder.toString();
     }
 

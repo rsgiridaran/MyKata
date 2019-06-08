@@ -34,7 +34,7 @@ public class BerlinClockConverterTest {
     }
 
     @Test
-    public void testBerlinClockForSecondsAndBothHoursRowAndMinuteFirstRow() {
+    public void testBerlinClockRepresentationForGivenTime() {
         ByteArrayOutputStream consoleOutputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(consoleOutputStream));
 
