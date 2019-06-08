@@ -7,6 +7,8 @@ import java.time.format.DateTimeParseException;
 
 public class BerlinClockConverter {
 
+    public static final int MAXIMUM_NUMBER_OF_LIGHTS_IN_HOUR_ROW = 4;
+    public static final String NO_LIGHTS = "0";
     private BerlinClock berlinClock;
 
     public BerlinClockConverter(String digitalTime) {
@@ -16,13 +18,17 @@ public class BerlinClockConverter {
 
     private BerlinClock processTime(int hour, int seconds) {
         berlinClock = new BerlinClock();
-        berlinClock.setSecond((seconds % 2 == 0) ? "Y" : "0");
-        StringBuilder rowStringBuilder = new StringBuilder();
-        int numeOfLightsOnInRow = hour / 5;
-        rowStringBuilder.append(StringUtils.repeat("R",numeOfLightsOnInRow));
-        rowStringBuilder.append(StringUtils.repeat("0", 4 - numeOfLightsOnInRow));
-        berlinClock.setHourFirstRow(rowStringBuilder.toString());
+        berlinClock.setSecond((seconds % 2 == 0) ? "Y" : NO_LIGHTS);
+        berlinClock.setHourFirstRow(generateHourRowString(hour));
         return berlinClock;
+    }
+
+    private String generateHourRowString(int hour) {
+        StringBuilder rowStringBuilder = new StringBuilder();
+        int numberOfLightsOnInRow = hour / 5;
+        rowStringBuilder.append(StringUtils.repeat("R",numberOfLightsOnInRow));
+        rowStringBuilder.append(StringUtils.repeat(NO_LIGHTS, MAXIMUM_NUMBER_OF_LIGHTS_IN_HOUR_ROW - numberOfLightsOnInRow));
+        return rowStringBuilder.toString();
     }
 
     public void printBerlinClock() {
