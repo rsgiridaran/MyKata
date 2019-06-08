@@ -1,5 +1,7 @@
 package com.channels.kata;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
@@ -9,12 +11,13 @@ public class BerlinClockConverter {
 
     public BerlinClockConverter(String digitalTime) {
         LocalTime localTime = parseInputTime(digitalTime);
-        berlinClock = processTime(localTime.getSecond());
+        berlinClock = processTime(localTime.getHour(), localTime.getSecond());
     }
 
-    private BerlinClock processTime(int seconds) {
+    private BerlinClock processTime(int hour, int seconds) {
         berlinClock = new BerlinClock();
         berlinClock.setSecond((seconds % 2 == 0) ? "Y" : "0");
+        berlinClock.setHourFirstRow(StringUtils.repeat("R",hour/5));
         return berlinClock;
     }
 
