@@ -41,6 +41,13 @@ public class BerlinClockConverterTest {
     }
 
     @Test
+    public void testBerlinClockForNullInput() {
+        assertIllegalArgumentException();
+
+        new BerlinClockConverter(null);
+    }
+
+    @Test
     public void testBerlinClockRepresentationForGivenTime() {
         BerlinClockConverter berlinClockConverter = new BerlinClockConverter("12:56:23");
         berlinClockConverter.printBerlinClock();

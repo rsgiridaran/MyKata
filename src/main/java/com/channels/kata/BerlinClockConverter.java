@@ -1,5 +1,6 @@
 package com.channels.kata;
 
+import com.channels.kata.model.BerlinClock;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalTime;
@@ -14,6 +15,7 @@ public class BerlinClockConverter {
     public static final String RED_LIGHT = "R";
     public static final int MAXIMUM_NUMBER_OF_LIGHTS_IN_MINUTE_FIRST_ROW = 11;
     public static final int CONSTANT_TWO = 2;
+    public static final String TIME_MUST_BE_IN_THE_FORMAT_HH_MM_SS = "Time must be in the format HH:mm:ss";
     private BerlinClock berlinClock;
 
     public BerlinClockConverter(String digitalTime) {
@@ -44,12 +46,12 @@ public class BerlinClockConverter {
 
     private LocalTime parseInputTime(String digitalTime) {
         if (null == digitalTime) {
-            return LocalTime.now();
+            throw new IllegalArgumentException(TIME_MUST_BE_IN_THE_FORMAT_HH_MM_SS);
         }
         try {
             return LocalTime.parse(digitalTime);
         } catch (DateTimeParseException parseException) {
-            throw new IllegalArgumentException("Time must be in the format HH:mm:ss");
+            throw new IllegalArgumentException(TIME_MUST_BE_IN_THE_FORMAT_HH_MM_SS);
         }
     }
 

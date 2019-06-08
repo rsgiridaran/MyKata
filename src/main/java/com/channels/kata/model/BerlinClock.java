@@ -1,4 +1,4 @@
-package com.channels.kata;
+package com.channels.kata.model;
 
 public class BerlinClock {
     private String second;
