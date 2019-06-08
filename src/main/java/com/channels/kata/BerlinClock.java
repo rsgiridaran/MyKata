@@ -3,6 +3,7 @@ package com.channels.kata;
 public class BerlinClock {
     private String second;
     private String hourFirstRow;
+    private String hourSecondRow;
 
     public String getSecond() {
         return second;
@@ -20,10 +21,19 @@ public class BerlinClock {
         this.hourFirstRow = hourFirstRow;
     }
 
+    public String getHourSecondRow() {
+        return hourSecondRow;
+    }
+
+    public void setHourSecondRow(String hourSecondRow) {
+        this.hourSecondRow = hourSecondRow;
+    }
+
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder(getSecond());
+        StringBuilder builder = new StringBuilder(this.getSecond());
         builder.append(this.getHourFirstRow());
+        builder.append(this.getHourSecondRow());
         return builder.toString();
     }
 }

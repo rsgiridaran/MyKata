@@ -19,14 +19,14 @@ public class BerlinClockConverter {
     private BerlinClock processTime(int hour, int seconds) {
         berlinClock = new BerlinClock();
         berlinClock.setSecond((seconds % 2 == 0) ? "Y" : NO_LIGHTS);
-        berlinClock.setHourFirstRow(generateHourRowString(hour));
+        berlinClock.setHourFirstRow(generateHourRowString(hour / 5));
+        berlinClock.setHourSecondRow(generateHourRowString(hour % 5));
         return berlinClock;
     }
 
-    private String generateHourRowString(int hour) {
+    private String generateHourRowString(int numberOfLightsOnInRow) {
         StringBuilder rowStringBuilder = new StringBuilder();
-        int numberOfLightsOnInRow = hour / 5;
-        rowStringBuilder.append(StringUtils.repeat("R",numberOfLightsOnInRow));
+        rowStringBuilder.append(StringUtils.repeat("R", numberOfLightsOnInRow));
         rowStringBuilder.append(StringUtils.repeat(NO_LIGHTS, MAXIMUM_NUMBER_OF_LIGHTS_IN_HOUR_ROW - numberOfLightsOnInRow));
         return rowStringBuilder.toString();
     }
