@@ -17,7 +17,11 @@ public class BerlinClockConverter {
     private BerlinClock processTime(int hour, int seconds) {
         berlinClock = new BerlinClock();
         berlinClock.setSecond((seconds % 2 == 0) ? "Y" : "0");
-        berlinClock.setHourFirstRow(StringUtils.repeat("R",hour/5));
+        StringBuilder rowStringBuilder = new StringBuilder();
+        int numeOfLightsOnInRow = hour / 5;
+        rowStringBuilder.append(StringUtils.repeat("R",numeOfLightsOnInRow));
+        rowStringBuilder.append(StringUtils.repeat("0", 4 - numeOfLightsOnInRow));
+        berlinClock.setHourFirstRow(rowStringBuilder.toString());
         return berlinClock;
     }
 

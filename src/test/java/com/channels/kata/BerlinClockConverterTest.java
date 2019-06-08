@@ -38,10 +38,10 @@ public class BerlinClockConverterTest {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
 
-        BerlinClockConverter clock = new BerlinClockConverter("21:56:23");
+        BerlinClockConverter clock = new BerlinClockConverter("12:56:23");
         clock.printBerlinClock();
 
-        Assert.assertEquals("0RRRR", outputStream.toString());
+        Assert.assertEquals("0RR00", outputStream.toString());
 
     }
 
