@@ -14,21 +14,22 @@ public class BerlinClockConverter {
 
     public BerlinClockConverter(String digitalTime) {
         LocalTime localTime = parseInputTime(digitalTime);
-        berlinClock = processTime(localTime.getHour(), localTime.getSecond());
+        berlinClock = processTime(localTime.getHour(), localTime.getMinute(), localTime.getSecond());
     }
 
-    private BerlinClock processTime(int hour, int seconds) {
+    private BerlinClock processTime(int hour,int minute, int seconds) {
         berlinClock = new BerlinClock();
         berlinClock.setSecond((seconds % 2 == 0) ? "Y" : NO_LIGHTS);
-        berlinClock.setHourFirstRow(generateHourRowString(hour / CONSTANTS_FIVE));
-        berlinClock.setHourSecondRow(generateHourRowString(hour % CONSTANTS_FIVE));
+        berlinClock.setHourFirstRow(generateHourRowString(hour / CONSTANTS_FIVE,"R",MAXIMUM_NUMBER_OF_LIGHTS_IN_HOUR_ROW ));
+        berlinClock.setHourSecondRow(generateHourRowString(hour % CONSTANTS_FIVE, "R",MAXIMUM_NUMBER_OF_LIGHTS_IN_HOUR_ROW));
+        berlinClock.setMinutesFirstRow(generateHourRowString(minute / CONSTANTS_FIVE,"Y",11).replace("YYY","YYR"));
         return berlinClock;
     }
 
-    private String generateHourRowString(int numberOfLightsOnInRow) {
+    private String generateHourRowString(int numberOfLightsOnInRow,String lightColor,int manimumNumberOfLightsInRow) {
         StringBuilder rowStringBuilder = new StringBuilder();
-        rowStringBuilder.append(StringUtils.repeat("R", numberOfLightsOnInRow));
-        rowStringBuilder.append(StringUtils.repeat(NO_LIGHTS, MAXIMUM_NUMBER_OF_LIGHTS_IN_HOUR_ROW - numberOfLightsOnInRow));
+        rowStringBuilder.append(StringUtils.repeat(lightColor, numberOfLightsOnInRow));
+        rowStringBuilder.append(StringUtils.repeat(NO_LIGHTS, manimumNumberOfLightsInRow - numberOfLightsOnInRow));
         return rowStringBuilder.toString();
     }
 
