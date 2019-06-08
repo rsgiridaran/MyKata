@@ -27,6 +27,7 @@ public class BerlinClockConverter {
         berlinClock.setHourFirstRow(generateHourRowString(hour / CONSTANT_FIVE, RED_LIGHT, MAXIMUM_NUMBER_OF_LIGHTS_IN_HOUR_ROW));
         berlinClock.setHourSecondRow(generateHourRowString(hour % CONSTANT_FIVE, RED_LIGHT, MAXIMUM_NUMBER_OF_LIGHTS_IN_HOUR_ROW));
         berlinClock.setMinutesFirstRow(generateHourRowString(minute / CONSTANT_FIVE, YELLOW_LIGHT, MAXIMUM_NUMBER_OF_LIGHTS_IN_MINUTE_FIRST_ROW).replace("YYY", "YYR"));
+        berlinClock.setMinutesSecondRow(generateHourRowString(minute % CONSTANT_FIVE, YELLOW_LIGHT, MAXIMUM_NUMBER_OF_LIGHTS_IN_HOUR_ROW));
         return berlinClock;
     }
 

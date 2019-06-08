@@ -5,6 +5,7 @@ public class BerlinClock {
     private String hourFirstRow;
     private String hourSecondRow;
     private String minutesFirstRow;
+    private String minutesSecondRow;
 
     public String getSecond() {
         return second;
@@ -38,12 +39,21 @@ public class BerlinClock {
         this.minutesFirstRow = minutesFirstRow;
     }
 
+    public String getMinutesSecondRow() {
+        return minutesSecondRow;
+    }
+
+    public void setMinutesSecondRow(String minutesSecondRow) {
+        this.minutesSecondRow = minutesSecondRow;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder(this.getSecond());
         builder.append(this.getHourFirstRow());
         builder.append(this.getHourSecondRow());
         builder.append(this.getMinutesFirstRow());
+        builder.append(this.getMinutesSecondRow());
         return builder.toString();
     }
 }

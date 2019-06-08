@@ -41,7 +41,7 @@ public class BerlinClockConverterTest {
         BerlinClockConverter berlinClockConverter = new BerlinClockConverter("12:56:23");
         berlinClockConverter.printBerlinClock();
 
-        Assert.assertEquals("0RR00RR00YYRYYRYYRYY", consoleOutputStream.toString());
+        Assert.assertEquals("0RR00RR00YYRYYRYYRYYY000", consoleOutputStream.toString());
 
     }
 
