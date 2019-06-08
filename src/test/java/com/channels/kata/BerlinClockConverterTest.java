@@ -35,13 +35,13 @@ public class BerlinClockConverterTest {
 
     @Test
     public void testBerlinClockForSecondsAndBothHoursRow() {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outputStream));
+        ByteArrayOutputStream consoleOutputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(consoleOutputStream));
 
-        BerlinClockConverter clock = new BerlinClockConverter("12:56:23");
-        clock.printBerlinClock();
+        BerlinClockConverter berlinClockConverter = new BerlinClockConverter("12:56:23");
+        berlinClockConverter.printBerlinClock();
 
-        Assert.assertEquals("0RR00RR00", outputStream.toString());
+        Assert.assertEquals("0RR00RR00", consoleOutputStream.toString());
 
     }
 
