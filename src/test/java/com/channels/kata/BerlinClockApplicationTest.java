@@ -1,17 +1,22 @@
 package com.channels.kata;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public class BerlinClockApplicationTest {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testBerlinClockApplicationForNullInput() {
-        BerlinClockApplication.main(new String[]{null});
+        Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                BerlinClockApplication.main(new String[]{null}));
 
+        assertEquals("Time must be in the format HH:mm:ss", exception.getMessage());
     }
 
     @Test
@@ -21,7 +26,7 @@ public class BerlinClockApplicationTest {
 
         BerlinClockApplication.main(new String[]{"02:45:54"});
 
-        Assert.assertEquals("Y0000RR00YYRYYRYYR000000",consoleOutputStream.toString());
+        Assertions.assertEquals("Y0000RR00YYRYYRYYR000000",consoleOutputStream.toString());
     }
 
 }

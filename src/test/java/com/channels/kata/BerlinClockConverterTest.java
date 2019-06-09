@@ -1,76 +1,89 @@
 package com.channels.kata;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import com.channels.kata.model.BerlinClock;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class BerlinClockConverterTest {
 
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
+    private BerlinClock berlinClock;
 
-    private ByteArrayOutputStream consoleOutputStream = new ByteArrayOutputStream();
-
-    @Before
-    public void initialize() {
-        System.setOut(new PrintStream(consoleOutputStream));
+    static Stream<String> invalidInputStream() {
+        return Stream.of("", "   ", null);
     }
 
-    private void assertIllegalArgumentException() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Time must be in the format HH:mm:ss");
+    @ParameterizedTest
+    @MethodSource("invalidInputStream")
+    public void testBerlinClockForInvalidInput(String digitalTime) {
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                new BerlinClockConverter(digitalTime));
+        assertEquals("Time must be in the format HH:mm:ss", exception.getMessage());
+
     }
 
-    @Test
-    public void testBerlinClockForInvalidInput() {
-        assertIllegalArgumentException();
+    @ParameterizedTest
+    @CsvSource({"11:11:11,0","12:12:12,Y"})
+    public void testBerlinClockForSeconds(String digitalTime, String expectedSecondsValue) {
+        BerlinClockConverter berlinClockConverter = new BerlinClockConverter(digitalTime);
 
-        new BerlinClockConverter("24:67:56");
+        berlinClock = berlinClockConverter.getBerlinClock();
+
+        assertEquals(expectedSecondsValue, berlinClock.getSecond());
     }
 
-    @Test
-    public void testBerlinClockForEmptyInput() {
-        assertIllegalArgumentException();
+    @ParameterizedTest
+    @CsvSource({"00:43:33,0000","05:11:11,R000","11:12:12,RR00","16:12:04,RRR0","23:32:04,RRRR"})
+    public void testBerlinClockForFirstHourRow(String digitalTime, String expectedFirstRowValue) {
+        BerlinClockConverter berlinClockConverter = new BerlinClockConverter(digitalTime);
 
-        new BerlinClockConverter("");
+        berlinClock = berlinClockConverter.getBerlinClock();
+
+        assertEquals(expectedFirstRowValue, berlinClock.getHourFirstRow());
     }
 
-    @Test
-    public void testBerlinClockForNullInput() {
-        assertIllegalArgumentException();
+    @ParameterizedTest
+    @CsvSource({"00:43:33,0000","11:12:12,R000","17:12:04,RR00","19:32:04,RRRR"})
+    public void testBerlinClockForSecondHourRow(String digitalTime, String expectedSecondHourRowValue) {
+        BerlinClockConverter berlinClockConverter = new BerlinClockConverter(digitalTime);
 
-        new BerlinClockConverter(null);
+        berlinClock = berlinClockConverter.getBerlinClock();
+
+        assertEquals(expectedSecondHourRowValue, berlinClock.getHourSecondRow());
     }
+
 
     @Test
     public void testBerlinClockRepresentationForGivenTime() {
         BerlinClockConverter berlinClockConverter = new BerlinClockConverter("12:56:23");
-        berlinClockConverter.printBerlinClock();
+        final BerlinClock berlinClock = berlinClockConverter.getBerlinClock();
 
-        Assert.assertEquals("0RR00RR00YYRYYRYYRYYY000", consoleOutputStream.toString());
+        assertEquals("0RR00RR00YYRYYRYYRYYY000", berlinClock.toString());
 
     }
 
     @Test
     public void testBerlinClockRepresentationWithEvenSeconds() {
         BerlinClockConverter berlinClockConverter = new BerlinClockConverter("12:56:16");
-        berlinClockConverter.printBerlinClock();
+        final BerlinClock berlinClock = berlinClockConverter.getBerlinClock();
 
-        Assert.assertEquals("YRR00RR00YYRYYRYYRYYY000", consoleOutputStream.toString());
+        assertEquals("YRR00RR00YYRYYRYYRYYY000", berlinClock.toString());
 
     }
 
     @Test
     public void testBerlinClockRepresentationWithNoRedLightsInMinuteFirstRow() {
         BerlinClockConverter berlinClockConverter = new BerlinClockConverter("12:04:16");
-        berlinClockConverter.printBerlinClock();
+        final BerlinClock berlinClock = berlinClockConverter.getBerlinClock();
 
-        Assert.assertEquals("YRR00RR0000000000000YYYY", consoleOutputStream.toString());
+        assertEquals("YRR00RR0000000000000YYYY", berlinClock.toString());
 
     }
 
